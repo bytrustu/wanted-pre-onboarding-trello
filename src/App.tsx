@@ -1,17 +1,13 @@
 import React from 'react';
 
 import GlobalStyles from './ui/core/GlobalStyles';
+import Router from './Router';
 
-function App() {
-  console.log(1);
-  return (
-    <>
-      <div className="App">
-        테스트
-      </div>
-      <GlobalStyles />
-    </>
-  );
-}
+const App = () => (
+  <>
+    <Router />
+    <GlobalStyles />
+  </>
+);
 
 export default App;
