@@ -23,7 +23,10 @@ const IconButton = ({
 }: IconButtonProps) => {
   const RenderButton = IconType[type];
   return (
-    <Button {...props}>
+    <Button
+      onClick={onClick}
+      {...props}
+    >
       <RenderButton size={size} />
     </Button>
   );

@@ -3,22 +3,44 @@ import styled from 'styled-components';
 
 import BoardItem from './BoardItem';
 import IconButton from '../common/IconButton';
+import { IssueProps, ModalType } from '../../../lib/constant/modalType';
+import { BoardTypeEnum } from '../../../lib/constant/boardType';
 
 type BoardListProps = {
   title: string;
+  boardType: BoardTypeEnum;
+  onModalOpen: (modalType: ModalType, issue?: IssueProps) => void;
+  issueList: IssueProps[];
 }
-const BoardList = ({ title }: BoardListProps) => {
+const BoardList = ({
+  title,
+  boardType,
+  onModalOpen,
+  issueList,
+}: BoardListProps) => {
   console.log('board list');
+
+  const handleCreateIssueClick = () => {
+    onModalOpen('CREATE', { boardType });
+  };
+
   return (
     <Container>
       <Header>
         <h4>{title}</h4>
-        <IconButton type="CREATE" size={24} onClick={() => {}} />
+        <IconButton
+          type="CREATE"
+          size={24}
+          onClick={handleCreateIssueClick}
+        />
       </Header>
       <Body>
         {
-          new Array(50).fill('').map((_, index) => (
-            <BoardItem key={index} />
+          issueList.map((issue, index) => (
+            <BoardItem
+              key={index}
+              {...issue}
+            />
           ))
         }
       </Body>

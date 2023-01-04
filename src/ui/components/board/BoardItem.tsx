@@ -2,10 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 import IconButton from '../common/IconButton';
+import { IssueProps } from '../../../lib/constant/modalType';
 
-const BoardItem = () => (
+const BoardItem = ({
+  boardType,
+  issueId,
+  issueDate,
+  owner,
+  title,
+  content,
+}: IssueProps) => (
   <Container draggable>
-    <Title>123123123123123123123123123123123123</Title>
+    <Title>{title}</Title>
     <IconButton type="DELETE" size={16} onClick={() => {}} />
   </Container>
 );
