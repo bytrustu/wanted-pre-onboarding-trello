@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import IconButton from '../common/IconButton';
-import { IssueProps } from '../../../lib/constant/modalType';
+import { IssueProps, MODAL_TYPE, ModalType } from '../../../lib/constant/modalType';
 
 interface BoardItemProps extends IssueProps {
   onDelete: (issueId: number) => void;
+  onModalOpen: (modalType: ModalType, issue?: IssueProps) => void;
 }
 
 const BoardItem = ({
@@ -16,6 +17,7 @@ const BoardItem = ({
   title,
   content,
   onDelete,
+  onModalOpen,
 }: BoardItemProps) => {
   const handleDeleteClick = () => {
     if (issueId) {
@@ -26,8 +28,12 @@ const BoardItem = ({
       }
     }
   };
+  const handleEditClick = (e: any) => {
+    e.stopPropagation();
+    onModalOpen(MODAL_TYPE.UPDATE, { boardType, issueId, issueDate, owner, title, content });
+  };
   return (
-    <Container draggable>
+    <Container onClick={handleEditClick} draggable>
       <Title>{title}</Title>
       <IconButton type="DELETE" size={16} onClick={handleDeleteClick} />
     </Container>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Backdrop from '../common/Backdrop';
 import IconButton from '../common/IconButton';
 import { BoardTypeOptions } from '../../../lib/constant/boardType';
-import { IssueProps, modalFixtures, ModalType } from '../../../lib/constant/modalType';
+import { IssueProps, MODAL_SUBMIT_NAME, modalFixtures, ModalType } from '../../../lib/constant/modalType';
 import SearchInput from '../common/SearchInput';
 import { isOwner, ownerList } from '../../../lib/constant/ownerList';
 
@@ -31,7 +31,11 @@ const BoardModal = ({
   const TitleRef = useRef<null | HTMLInputElement>(null);
 
   const handleOnSubmit = () => {
-    onSubmit(issue, modalType);
+    if (modalType === MODAL_SUBMIT_NAME.CREATE) {
+      onSubmit(issue, modalType);
+      return;
+    }
+    onSubmit({ ...issue, issueId }, modalType);
   };
 
   const handleChangeSearchInput = (value: string) => {
@@ -77,6 +81,7 @@ const BoardModal = ({
   }), [issue]);
 
   useEffect(() => {
+    console.log('modalType >>>', modalType);
     if (modalType === 'UPDATE') {
       setIssue({
         boardType,
@@ -187,7 +192,7 @@ const BoardModal = ({
             disabled={!isValidation}
             onClick={handleOnSubmit}
           >
-            저장
+            {MODAL_SUBMIT_NAME[modalType]}
           </SubmitButton>
         </Footer>
       </Container>

@@ -41,6 +41,7 @@ const BoardList = ({
             <BoardItem
               key={index}
               onDelete={onDelete}
+              onModalOpen={onModalOpen}
               {...issue}
             />
           ))
