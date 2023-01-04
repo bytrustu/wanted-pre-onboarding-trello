@@ -11,15 +11,16 @@ type BoardListProps = {
   boardType: BoardTypeEnum;
   onModalOpen: (modalType: ModalType, issue?: IssueProps) => void;
   issueList: IssueProps[];
+  onDelete: (issueId: number) => void;
 }
+
 const BoardList = ({
   title,
   boardType,
   onModalOpen,
   issueList,
+  onDelete,
 }: BoardListProps) => {
-  console.log('board list');
-
   const handleCreateIssueClick = () => {
     onModalOpen('CREATE', { boardType });
   };
@@ -39,6 +40,7 @@ const BoardList = ({
           issueList.map((issue, index) => (
             <BoardItem
               key={index}
+              onDelete={onDelete}
               {...issue}
             />
           ))

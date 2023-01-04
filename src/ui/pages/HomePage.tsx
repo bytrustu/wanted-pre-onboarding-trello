@@ -17,6 +17,7 @@ const HomePage = () => {
     acc[boardType] = acc[boardType] ? [...acc[boardType], cur] : [cur];
     return acc;
   }, {} as { [key in BoardTypeEnum]: IssueProps[] }), [issueList]);
+
   const handleModalOpen = (modalType: ModalType, issue?: IssueProps) => {
     if (modalType === 'UPDATE' && issue) {
       setIssueState(issue);
@@ -44,6 +45,11 @@ const HomePage = () => {
     }
   };
 
+  const handleIssueDelete = (issueId: number) => {
+    setIssueList((prevIssue) => prevIssue.filter((issue) => issue.issueId !== issueId));
+    alert('삭제되었습니다.');
+  };
+
   return (
     <>
       {
@@ -62,18 +68,21 @@ const HomePage = () => {
           boardType={BoardTypeEnum.Todo}
           onModalOpen={handleModalOpen}
           issueList={IssueListByBoardType[BoardTypeEnum.Todo] || []}
+          onDelete={handleIssueDelete}
         />
         <BoardList
           title={BoardType[BoardTypeEnum.InProgress]}
           boardType={BoardTypeEnum.InProgress}
           onModalOpen={handleModalOpen}
           issueList={IssueListByBoardType[BoardTypeEnum.InProgress] || []}
+          onDelete={handleIssueDelete}
         />
         <BoardList
           title={BoardType[BoardTypeEnum.Done]}
           boardType={BoardTypeEnum.Done}
           onModalOpen={handleModalOpen}
           issueList={IssueListByBoardType[BoardTypeEnum.Done] || []}
+          onDelete={handleIssueDelete}
         />
       </Layout>
     </>

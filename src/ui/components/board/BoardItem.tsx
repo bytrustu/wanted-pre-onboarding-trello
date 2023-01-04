@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import IconButton from '../common/IconButton';
 import { IssueProps } from '../../../lib/constant/modalType';
 
+interface BoardItemProps extends IssueProps {
+  onDelete: (issueId: number) => void;
+}
+
 const BoardItem = ({
   boardType,
   issueId,
@@ -11,12 +15,24 @@ const BoardItem = ({
   owner,
   title,
   content,
-}: IssueProps) => (
-  <Container draggable>
-    <Title>{title}</Title>
-    <IconButton type="DELETE" size={16} onClick={() => {}} />
-  </Container>
-);
+  onDelete,
+}: BoardItemProps) => {
+  const handleDeleteClick = () => {
+    if (issueId) {
+      // eslint-disable-next-line no-restricted-globals
+      const isConfirm = confirm('정말 삭제하시겠습니까?');
+      if (isConfirm) {
+        onDelete(issueId);
+      }
+    }
+  };
+  return (
+    <Container draggable>
+      <Title>{title}</Title>
+      <IconButton type="DELETE" size={16} onClick={handleDeleteClick} />
+    </Container>
+  );
+};
 
 export default BoardItem;
 
