@@ -11,7 +11,7 @@ const IconType = {
 type IconButtonProps = {
   type: keyof typeof IconType;
   size: number;
-  onClick: () => void;
+  onClick: (e?: any) => void;
   [key: string]: any;
 }
 

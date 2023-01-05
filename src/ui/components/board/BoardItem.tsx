@@ -19,23 +19,33 @@ const BoardItem = ({
   onDelete,
   onModalOpen,
 }: BoardItemProps) => {
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
     if (issueId) {
       // eslint-disable-next-line no-restricted-globals
       const isConfirm = confirm('정말 삭제하시겠습니까?');
       if (isConfirm) {
+        console.log('issueId', issueId);
+        console.log(onDelete);
         onDelete(issueId);
       }
     }
   };
-  const handleEditClick = (e: any) => {
-    e.stopPropagation();
+  const handleEditClick = () => {
     onModalOpen(MODAL_TYPE.UPDATE, { boardType, issueId, issueDate, owner, title, content });
   };
   return (
-    <Container onClick={handleEditClick} draggable>
+    <Container
+      onClick={handleEditClick}
+    >
       <Title>{title}</Title>
-      <IconButton type="DELETE" size={16} onClick={handleDeleteClick} />
+      <IconButton
+        type="DELETE"
+        size={16}
+        onClick={handleDeleteClick}
+        style={{ padding: '10px' }}
+      />
     </Container>
   );
 };
@@ -51,7 +61,6 @@ const Container = styled.li`
   border-radius: 5px;
   cursor: grab;
   margin-top: 10px;
-  padding: 10px;
 `;
 
 const Title = styled.span`
@@ -64,6 +73,7 @@ const Title = styled.span`
   display: inline-block;
   max-width: 240px;
   width: 240px;
+  padding: 10px;
 `;
 
 const DeleteButton = styled.button`
@@ -73,6 +83,6 @@ const DeleteButton = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 0;
+  padding: 10px;
   margin: 0;
 `;
