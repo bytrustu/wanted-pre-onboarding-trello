@@ -21,10 +21,20 @@ export interface IssueProps {
   content?: string;
 }
 
+export type IssueListProps = {
+  [key in BoardTypeEnum]: IssueProps[];
+}
+
 export const modalFixtures = {
   boardType: BoardTypeEnum.Todo,
   issueDate: '',
   owner: '',
   title: '',
   content: '',
+};
+
+export const issueListFixtures = {
+  [BoardTypeEnum.Todo]: [],
+  [BoardTypeEnum.InProgress]: [],
+  [BoardTypeEnum.Done]: [],
 };

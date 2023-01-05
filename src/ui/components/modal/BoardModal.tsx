@@ -81,7 +81,6 @@ const BoardModal = ({
   }), [issue]);
 
   useEffect(() => {
-    console.log('modalType >>>', modalType);
     if (modalType === 'UPDATE') {
       setIssue({
         boardType,
